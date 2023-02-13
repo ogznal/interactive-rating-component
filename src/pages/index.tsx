@@ -1,12 +1,22 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { Overpass } from "@next/font/google";
+import { useState } from "react";
+import { RatingRadioButton } from "../components/ratingRadioButton";
 
 const overpass = Overpass({
   subsets: ["latin"],
 });
 
 const Home: NextPage = () => {
+  const [rating, setRating] = useState(0);
+
+  const handleForm = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    console.log(rating);
+  };
+
   return (
     <>
       <Head>
@@ -17,7 +27,7 @@ const Home: NextPage = () => {
       <main
         className={`flex min-h-screen items-center justify-center bg-[#141519] ${overpass.className}`}
       >
-        <div className="w-11/12 rounded-xl bg-gradient-to-t from-[#212733] via-[#1a212b] to-[#262f38] p-5">
+        <div className="w-11/12 rounded-xl bg-gradient-to-t from-[#212733] via-[#1a212b] to-[#262f38] p-8">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#273039] p-2">
             <img src="/icon-star.svg" alt="star icon" />
           </div>
@@ -31,88 +41,45 @@ const Home: NextPage = () => {
           <form action="#">
             <ul className="my-6 flex flex-row place-content-between">
               <li>
-                <input
-                  type="radio"
-                  name="rating"
-                  id="rating-1"
-                  value={1}
-                  className="peer hidden"
+                <RatingRadioButton
+                  score={1}
+                  isChecked={rating == 1}
+                  handleFunction={() => setRating(1)}
                 />
-                <label
-                  htmlFor="rating-1"
-                  className="block h-10 w-10 cursor-pointer rounded-full bg-[#262f38] pt-2 text-center text-[#959eac] hover:bg-[#f7781b] hover:text-white peer-checked:bg-[#7c8898] peer-checked:text-white"
-                >
-                  1
-                </label>
               </li>
               <li>
-                <input
-                  type="radio"
-                  name="rating"
-                  id="rating-2"
-                  value={2}
-                  className="peer hidden"
-                  required
+                <RatingRadioButton
+                  score={2}
+                  isChecked={rating == 2}
+                  handleFunction={() => setRating(2)}
                 />
-                <label
-                  htmlFor="rating-2"
-                  className="block h-10 w-10 cursor-pointer rounded-full bg-[#262f38] pt-2 text-center text-[#959eac] hover:bg-[#f7781b] hover:text-white peer-checked:bg-[#7c8898] peer-checked:text-white"
-                >
-                  2
-                </label>
               </li>
               <li>
-                <input
-                  type="radio"
-                  name="rating"
-                  id="rating-3"
-                  value={3}
-                  className="peer hidden"
-                  required
+                <RatingRadioButton
+                  score={3}
+                  isChecked={rating == 3}
+                  handleFunction={() => setRating(3)}
                 />
-                <label
-                  htmlFor="rating-3"
-                  className="block h-10 w-10 cursor-pointer rounded-full bg-[#262f38] pt-2 text-center text-[#959eac] hover:bg-[#f7781b] hover:text-white peer-checked:bg-[#7c8898] peer-checked:text-white"
-                >
-                  3
-                </label>
               </li>
               <li>
-                <input
-                  type="radio"
-                  name="rating"
-                  id="rating-4"
-                  value={4}
-                  className="peer hidden"
-                  required
+                <RatingRadioButton
+                  score={4}
+                  isChecked={rating == 4}
+                  handleFunction={() => setRating(4)}
                 />
-                <label
-                  htmlFor="rating-4"
-                  className="block h-10 w-10 cursor-pointer rounded-full bg-[#262f38] pt-2 text-center text-[#959eac] hover:bg-[#f7781b] hover:text-white peer-checked:bg-[#7c8898] peer-checked:text-white"
-                >
-                  4
-                </label>
               </li>
               <li>
-                <input
-                  type="radio"
-                  name="rating"
-                  id="rating-5"
-                  value={5}
-                  className="peer hidden"
-                  required
+                <RatingRadioButton
+                  score={5}
+                  isChecked={rating == 5}
+                  handleFunction={() => setRating(5)}
                 />
-                <label
-                  htmlFor="rating-5"
-                  className="block h-10 w-10 cursor-pointer rounded-full bg-[#262f38] pt-2 text-center text-[#959eac] hover:bg-[#f7781b] hover:text-white peer-checked:bg-[#7c8898] peer-checked:text-white"
-                >
-                  5
-                </label>
               </li>
             </ul>
             <button
               type="submit"
-              className="mb-2 w-full rounded-full bg-[#fb7413] py-2 pt-3 text-center text-sm uppercase tracking-widest text-white hover:bg-white hover:text-[#fb7413]"
+              onClick={(e) => handleForm(e)}
+              className="w-full rounded-full bg-[#fb7413] py-2 pt-3 text-center text-sm uppercase tracking-widest text-white hover:bg-white hover:text-[#fb7413]"
             >
               submit
             </button>
