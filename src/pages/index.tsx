@@ -2,7 +2,9 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { Overpass } from "@next/font/google";
 import { useState } from "react";
-import { RatingRadioButton } from "../components/ratingRadioButton";
+
+import { RatingComponent } from "../components/ratingComponent";
+import { ResultComponent } from "../components/resultComponent";
 
 const overpass = Overpass({
   subsets: ["latin"],
@@ -10,12 +12,6 @@ const overpass = Overpass({
 
 const Home: NextPage = () => {
   const [rating, setRating] = useState(0);
-
-  const handleForm = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    console.log(rating);
-  };
 
   return (
     <>
@@ -25,66 +21,29 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`flex min-h-screen items-center justify-center bg-[#141519] ${overpass.className}`}
+        className={`flex min-h-screen flex-col items-center justify-center bg-[#141519] ${overpass.className}`}
       >
-        <div className="w-11/12 rounded-xl bg-gradient-to-t from-[#212733] via-[#1a212b] to-[#262f38] p-8">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#273039] p-2">
-            <img src="/icon-star.svg" alt="star icon" />
-          </div>
-          <h1 className="my-5 text-2xl font-bold tracking-wide text-white">
-            How did we do?
-          </h1>
-          <p className="mb-8 text-sm text-[#959eac]">
-            Please let us know how we did with your support request. All
-            feedback is appreciated to help us improve our offering!
-          </p>
-          <form action="#">
-            <ul className="my-6 flex flex-row place-content-between">
-              <li>
-                <RatingRadioButton
-                  score={1}
-                  isChecked={rating == 1}
-                  handleFunction={() => setRating(1)}
-                />
-              </li>
-              <li>
-                <RatingRadioButton
-                  score={2}
-                  isChecked={rating == 2}
-                  handleFunction={() => setRating(2)}
-                />
-              </li>
-              <li>
-                <RatingRadioButton
-                  score={3}
-                  isChecked={rating == 3}
-                  handleFunction={() => setRating(3)}
-                />
-              </li>
-              <li>
-                <RatingRadioButton
-                  score={4}
-                  isChecked={rating == 4}
-                  handleFunction={() => setRating(4)}
-                />
-              </li>
-              <li>
-                <RatingRadioButton
-                  score={5}
-                  isChecked={rating == 5}
-                  handleFunction={() => setRating(5)}
-                />
-              </li>
-            </ul>
-            <button
-              type="submit"
-              onClick={(e) => handleForm(e)}
-              className="w-full rounded-full bg-[#fb7413] py-2 pt-3 text-center text-sm uppercase tracking-widest text-white hover:bg-white hover:text-[#fb7413]"
-            >
-              submit
-            </button>
-          </form>
+        <div className="w-11/12 rounded-xl bg-gradient-to-t from-[#212733] via-[#1a212b] to-[#262f38] p-8 md:w-1/4">
+          {rating === 0 && <RatingComponent rate={setRating} />}
+          {rating !== 0 && <ResultComponent rating={rating} />}
         </div>
+        <footer className="mt-10 text-xs text-white">
+          Challenge by{" "}
+          <a
+            href="https://www.frontendmentor.io?ref=challenge"
+            className="text-blue-300 hover:text-blue-100 hover:underline"
+          >
+            Frontend Mentor
+          </a>
+          . Coded by{" "}
+          <a
+            href="https://github.com/ogznal"
+            className="text-blue-300 hover:text-blue-100 hover:underline"
+          >
+            ogznal
+          </a>
+          .
+        </footer>
       </main>
     </>
   );
